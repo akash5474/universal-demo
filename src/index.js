@@ -6,6 +6,8 @@ import App from './components/App'
 
 const history = createHistory()
 
+console.log('hello world')
+
 const render = App =>
   ReactDOM.hydrate(
     <AppContainer>

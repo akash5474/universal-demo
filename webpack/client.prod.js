@@ -22,20 +22,19 @@ module.exports = {
       },
       {
         test: /\.styl$/,
-        use: ExtractCssChunks.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: '[name]__[local]--[hash:base64:5]'
-              }
-            },
-            {
-              loader: 'stylus-loader'
+        use: [
+          ExtractCssChunks.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]'
             }
-          ]
-        })
+          },
+          {
+            loader: 'stylus-loader'
+          }
+        ]
       }
     ]
   },
@@ -44,31 +43,17 @@ module.exports = {
   },
   plugins: [
     new ExtractCssChunks(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
-      filename: '[name].[chunkhash].js',
-      minChunks: Infinity
-    }),
 
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        screw_ie8: true,
-        warnings: false
-      },
-      mangle: {
-        screw_ie8: true
-      },
-      output: {
-        screw_ie8: true,
-        comments: false
-      },
-      sourceMap: true
-    }),
-    new webpack.HashedModuleIdsPlugin() // not needed for strategy to work (just good practice)
-  ]
+    })
+  ],
+
+  optimization: {
+    runtimeChunk: {
+      name: 'bootstrap'
+    }
+  }
 }

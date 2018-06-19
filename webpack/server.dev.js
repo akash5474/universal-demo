@@ -32,7 +32,7 @@ module.exports = {
   externals,
   output: {
     path: output,
-    filename: '[name].js',
+    filename: 'main.js',
     libraryTarget: 'commonjs2'
   },
   module: {
