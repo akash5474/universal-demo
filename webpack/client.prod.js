@@ -8,8 +8,8 @@ module.exports = {
   devtool: 'source-map',
   entry: [path.resolve(__dirname, '../src/index.js')],
   output: {
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js',
+    filename: '[name].js',
+    chunkFilename: '[name].js',
     path: path.resolve(__dirname, '../buildClient'),
     publicPath: '/static/'
   },
